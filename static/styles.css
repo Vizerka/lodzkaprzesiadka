@@ -32,7 +32,7 @@ body {
     color: var(--text);
     position: relative;
 
-    /* GRADIENT, który lubisz */
+    /* Twój gradient */
     background:
         radial-gradient(circle at top left, #3b0c73 0, transparent 55%),
         radial-gradient(circle at top right, #1f2559 0, transparent 60%),
@@ -40,7 +40,7 @@ body {
         radial-gradient(circle at center, #0b061f 0, var(--bg) 70%);
 }
 
-/* ceglana tekstura na wierzchu gradientu, ale delikatnie */
+/* ceglana tekstura jako overlay z mieszaniem */
 body::before {
     content: "";
     position: fixed;
@@ -48,40 +48,25 @@ body::before {
     pointer-events: none;
     z-index: -1;
 
-    /* 👇 TU JEST TWOJA CEGŁA – UWAGA NA ŚCIEŻKĘ */
     background: url("images/cegla.png") repeat;
+    background-size: 512px 512px;
 
-    background-size: 512px 512px; /* zmniejsz / zwiększ jak chcesz */
     opacity: 0.35;
     mix-blend-mode: soft-light;
 }
 
 /* ======================
-   STRUKTURA STRONY
+   TREŚĆ STRONY
 ====================== */
 
 #site-content {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    opacity: 0;
-    transition: opacity 1s ease 0.3s;
-}
-
-#site-content.show {
-    opacity: 1;
-}
-
-.site-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 0 3rem;
 }
 
 /* ======================
-   HEADER – pill glass
+   HEADER – GLASS
 ====================== */
 
 .site-header {
@@ -91,10 +76,6 @@ body::before {
     display: flex;
     justify-content: center;
     padding: 1rem 0;
-}
-
-.site-header.unstuck {
-    position: static;
 }
 
 .site-header .container {
@@ -110,7 +91,6 @@ body::before {
     );
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
 
     box-shadow: var(--shadow-soft);
 }
@@ -130,12 +110,20 @@ body::before {
 }
 
 /* ======================
-   KARTY: HERO + TELEGRAM
+   MAIN
 ====================== */
 
-.hero {
-    width: 100%;
+.site-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0 3rem;
 }
+
+/* ======================
+   KARTY — GLASSMORPHISM
+====================== */
 
 .container.hero-content,
 .container.tg-box {
@@ -153,14 +141,11 @@ body::before {
 
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
 
     box-shadow: var(--shadow-strong);
     position: relative;
     overflow: hidden;
 }
-
-/* delikatny glare w rogu karty */
 
 .container.hero-content::before,
 .container.tg-box::before {
@@ -180,12 +165,7 @@ body::before {
     pointer-events: none;
 }
 
-/* HERO – tekst + Piotrek */
-
-.container.hero-content {
-    display: flex;
-    flex-direction: column;
-}
+/* HERO */
 
 .hero-text h2 {
     margin: 0 0 0.9rem;
@@ -214,7 +194,7 @@ body::before {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.45);
 }
 
-/* Piotrek */
+/* Piotrek w sekcji */
 
 .hero-image {
     margin-top: 1.6rem;
@@ -224,9 +204,6 @@ body::before {
 
 .hero-image img {
     max-width: 100%;
-    height: auto;
-    display: block;
-
     border-radius: var(--radius-uniform);
     border: 1px solid rgba(255, 255, 255, 0.22);
     background: radial-gradient(circle at top,
@@ -235,25 +212,15 @@ body::before {
     filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.85));
 }
 
-/* TELEGRAM card */
+/* TELEGRAM */
 
 .telegram-section {
     width: 100%;
-    padding: 0 0 3rem;
+    padding-bottom: 3rem;
 }
 
 .tg-box {
     text-align: center;
-}
-
-.tg-box h2 {
-    margin: 0 0 1rem;
-    font-size: 1.8rem;
-}
-
-.tg-box p {
-    margin: 0 0 1.5rem;
-    color: var(--muted);
 }
 
 .tg-button {
@@ -271,16 +238,10 @@ body::before {
     font-weight: 600;
     border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow: 0 10px 22px rgba(0, 136, 204, 0.55);
-    transition: 0.18s ease;
-}
-
-.tg-button:hover {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 16px 30px rgba(0, 136, 204, 0.7);
 }
 
 /* ======================
-   FOOTER – pill glass
+   FOOTER
 ====================== */
 
 .site-footer {
@@ -298,7 +259,6 @@ body::before {
     border-radius: var(--radius-uniform);
     background: rgba(12, 8, 32, 0.9);
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
 
     box-shadow: var(--shadow-soft);
@@ -311,18 +271,30 @@ body::before {
 }
 
 /* ======================
-   INTRO CEGŁA
+   INTRO — PIOTREK z BLUREM
 ====================== */
 
 #intro-brick {
     position: fixed;
     inset: 0;
-    background: #000;
+    z-index: 9999;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
-    transition: opacity 1s ease, filter 1s ease;
+
+    /* zamiast czarnego tła: półprzezroczysta mgła */
+    background: rgba(0, 0, 0, 0.32);
+
+    /* i rozmycie prawdziwej strony pod spodem */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    transition:
+        opacity 1s ease,
+        filter 1s ease,
+        background-color 1s ease,
+        backdrop-filter 1s ease;
 }
 
 #intro-brick img {
@@ -334,7 +306,8 @@ body::before {
 
 #intro-brick.hide {
     opacity: 0;
-    filter: blur(25px);
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
     pointer-events: none;
 }
 
@@ -343,10 +316,6 @@ body::before {
 ====================== */
 
 @media (max-width: 800px) {
-    .site-main {
-        padding-top: 1.5rem;
-    }
-
     .container.hero-content,
     .container.tg-box {
         padding: 2rem 1.4rem;
