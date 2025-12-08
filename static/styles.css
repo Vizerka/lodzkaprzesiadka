@@ -1,13 +1,359 @@
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #ff6bd5, #1b1030 55%, #05030a);
-      color: #fff;
-      font-family: system-ui, sans-serif;
-      text-align: center;
+:root {
+    --bg: #050312;
+    --glass-bg: rgba(15, 10, 40, 0.85);
+    --glass-bg-soft: rgba(15, 10, 40, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --accent-blue: #00aaff;
+    --text: #f9f9ff;
+    --muted: #b2b2d6;
+    --card-width: 700px;
+    --radius-uniform: 28px;
+    --shadow-soft: 0 14px 35px rgba(0, 0, 0, 0.55);
+    --shadow-strong: 0 25px 60px rgba(0, 0, 0, 0.72);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* ======================
+   TŁO: CEGŁA + GRADIENT
+====================== */
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text);
+    position: relative;
+
+    /* GRADIENT, który lubisz */
+    background:
+        radial-gradient(circle at top left, #3b0c73 0, transparent 55%),
+        radial-gradient(circle at top right, #1f2559 0, transparent 60%),
+        radial-gradient(circle at bottom, #0b4e6b 0, transparent 60%),
+        radial-gradient(circle at center, #0b061f 0, var(--bg) 70%);
+}
+
+/* ceglana tekstura na wierzchu gradientu, ale delikatnie */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+
+    /* 👇 TU JEST TWOJA CEGŁA – UWAGA NA ŚCIEŻKĘ */
+    background: url("images/cegla.png") repeat;
+
+    background-size: 512px 512px; /* zmniejsz / zwiększ jak chcesz */
+    opacity: 0.35;
+    mix-blend-mode: soft-light;
+}
+
+/* ======================
+   STRUKTURA STRONY
+====================== */
+
+#site-content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 1s ease 0.3s;
+}
+
+#site-content.show {
+    opacity: 1;
+}
+
+.site-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0 3rem;
+}
+
+/* ======================
+   HEADER – pill glass
+====================== */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+.site-header.unstuck {
+    position: static;
+}
+
+.site-header .container {
+    width: 100%;
+    max-width: var(--card-width);
+    padding: 0.9rem 1.4rem;
+
+    border-radius: var(--radius-uniform);
+    background: linear-gradient(
+        140deg,
+        rgba(20, 15, 45, 0.9),
+        rgba(12, 8, 28, 0.7)
+    );
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow: var(--shadow-soft);
+}
+
+.logo {
+    margin: 0;
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.tagline {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+/* ======================
+   KARTY: HERO + TELEGRAM
+====================== */
+
+.hero {
+    width: 100%;
+}
+
+.container.hero-content,
+.container.tg-box {
+    width: 100%;
+    max-width: var(--card-width);
+    margin: 0 auto 2.2rem;
+    padding: 2.4rem 2.1rem;
+
+    border-radius: var(--radius-uniform);
+    background:
+        radial-gradient(circle at top left,
+            rgba(255, 255, 255, 0.18),
+            transparent 55%)
+        ,var(--glass-bg-soft);
+
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow: var(--shadow-strong);
+    position: relative;
+    overflow: hidden;
+}
+
+/* delikatny glare w rogu karty */
+
+.container.hero-content::before,
+.container.tg-box::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: conic-gradient(
+        from 220deg,
+        rgba(255, 255, 255, 0.16),
+        transparent 25%,
+        transparent 60%,
+        rgba(255, 255, 255, 0.14),
+        transparent 80%
+    );
+    opacity: 0.14;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+/* HERO – tekst + Piotrek */
+
+.container.hero-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-text h2 {
+    margin: 0 0 0.9rem;
+    font-size: 2.1rem;
+}
+
+.hero-text p {
+    margin: 0 0 0.75rem;
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+.hero-meta {
+    margin-top: 0.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+}
+
+.hero-meta span {
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(8, 5, 26, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.45);
+}
+
+/* Piotrek */
+
+.hero-image {
+    margin-top: 1.6rem;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+
+    border-radius: var(--radius-uniform);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: radial-gradient(circle at top,
+                rgba(255, 255, 255, 0.09),
+                transparent 55%);
+    filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.85));
+}
+
+/* TELEGRAM card */
+
+.telegram-section {
+    width: 100%;
+    padding: 0 0 3rem;
+}
+
+.tg-box {
+    text-align: center;
+}
+
+.tg-box h2 {
+    margin: 0 0 1rem;
+    font-size: 1.8rem;
+}
+
+.tg-box p {
+    margin: 0 0 1.5rem;
+    color: var(--muted);
+}
+
+.tg-button {
+    display: inline-block;
+    padding: 0.85rem 1.7rem;
+    font-size: 1.05rem;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 999px;
+    background: linear-gradient(
+        120deg,
+        rgba(0, 136, 204, 0.85),
+        rgba(0, 196, 255, 0.95)
+    );
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 22px rgba(0, 136, 204, 0.55);
+    transition: 0.18s ease;
+}
+
+.tg-button:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 16px 30px rgba(0, 136, 204, 0.7);
+}
+
+/* ======================
+   FOOTER – pill glass
+====================== */
+
+.site-footer {
+    padding: 1.2rem 0 1.7rem;
+    text-align: center;
+    color: var(--muted);
+}
+
+.site-footer .container {
+    width: 100%;
+    max-width: var(--card-width);
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem;
+
+    border-radius: var(--radius-uniform);
+    background: rgba(12, 8, 32, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+
+    box-shadow: var(--shadow-soft);
+}
+
+.site-footer .small {
+    margin: 0;
+    font-size: 0.82rem;
+    opacity: 0.9;
+}
+
+/* ======================
+   INTRO CEGŁA
+====================== */
+
+#intro-brick {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 1s ease, filter 1s ease;
+}
+
+#intro-brick img {
+    max-width: 92%;
+    max-height: 92%;
+    border-radius: var(--radius-uniform);
+    filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.9));
+}
+
+#intro-brick.hide {
+    opacity: 0;
+    filter: blur(25px);
+    pointer-events: none;
+}
+
+/* ======================
+   RESPONSIVE
+====================== */
+
+@media (max-width: 800px) {
+    .site-main {
+        padding-top: 1.5rem;
     }
-    h1 { font-size: 2.8rem; margin-bottom: .5rem; }
-    p { opacity: .8; }
+
+    .container.hero-content,
+    .container.tg-box {
+        padding: 2rem 1.4rem;
+        margin-bottom: 1.7rem;
+    }
+
+    .hero-text h2 {
+        font-size: 1.7rem;
+    }
+}
