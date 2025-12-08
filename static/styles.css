@@ -240,6 +240,27 @@ body::before {
     box-shadow: 0 10px 22px rgba(0, 136, 204, 0.55);
 }
 
+.tg-button:hover {
+    transform: translateY(-3px) scale(1.03);
+
+    background: linear-gradient(
+        120deg,
+        rgba(0, 150, 230, 1),
+        rgba(0, 210, 255, 1)
+    );
+
+    box-shadow:
+        0 16px 32px rgba(0, 150, 230, 0.65),
+        0 0 20px rgba(0, 180, 255, 0.7);
+
+    filter: brightness(1.15);
+}
+
+.tg-button:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 6px 14px rgba(0, 136, 204, 0.4);
+}
+
 /* ======================
    FOOTER
 ====================== */
