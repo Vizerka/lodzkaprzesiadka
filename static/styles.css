@@ -1,349 +1,457 @@
-:root {
-    --bg: #050312;
-    --glass-bg: rgba(15, 10, 40, 0.85);
-    --glass-bg-soft: rgba(15, 10, 40, 0.65);
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --accent-blue: #00aaff;
-    --text: #f9f9ff;
-    --muted: #b2b2d6;
-    --card-width: 700px;
-    --radius-uniform: 28px;
-    --shadow-soft: 0 14px 35px rgba(0, 0, 0, 0.55);
-    --shadow-strong: 0 25px 60px rgba(0, 0, 0, 0.72);
+/* =========================================================
+   Jarvis zwajbkoduj mi ce es esa
+   ========================================================= */
+
+/* ----------------------
+   Tokens / Theme
+---------------------- */
+:root{
+  /* kolorystyka */
+  --bg: #0b0706;
+  --text: #f4f3ff;
+  --muted: rgba(244,243,255,0.72);
+
+  /* akcent */
+  --accent-blue: #00aaff;
+
+  /* layout */
+  --card-width: 1200px;
+  --radius: 22px;
+
+  /* “flat glass” = matowe panele */
+  --panel-bg: rgba(18, 14, 12, 0.78);         /* dym na cegle */
+  --panel-border: rgba(255, 255, 255, 0.14);
+  --panel-border-strong: rgba(255, 255, 255, 0.18);
+  --panel-shadow: 0 14px 40px rgba(0,0,0,0.55);
+  --panel-shadow-strong: 0 25px 70px rgba(0,0,0,0.70);
+
+  /* blur mniejszy = mniej “glassa”, bardziej mat */
+  --blur: 12px;
+
+  /* pillki */
+  --pill-bg: rgba(0,0,0,0.28);
+  --pill-border: rgba(255,255,255,0.14);
+  --pill-shadow: 0 10px 26px rgba(0,0,0,0.40);
+
+  /* Bootstrap overrides (minimal) */
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text);
+
+  --bs-primary: var(--accent-blue);
+  --bs-primary-rgb: 0,170,255;
+
+  --bs-link-color: rgba(0,170,255,0.95);
+  --bs-link-hover-color: rgba(0,170,255,1);
 }
 
+/* ----------------------
+   Base / Resets
+---------------------- */
 *,
 *::before,
-*::after {
-    box-sizing: border-box;
+*::after{ box-sizing: border-box; }
+
+html, body{ margin: 0; padding: 0; }
+
+/* smooth scroll (anchor/sekcje) */
+html{
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
+body{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  position: relative;
 }
 
-/* ======================
-   TŁO: CEGŁA + GRADIENT
-====================== */
+/* ----------------------
+   Background: cegła + winieta
+---------------------- */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
 
-body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    color: var(--text);
-    position: relative;
+  background: url("images/cegla.png") repeat;
+  background-size: 520px 520px;
+  opacity: 0.26;
 
-    /* Twój gradient */
-    background:
-        radial-gradient(circle at top left, #3b0c73 0, transparent 55%),
-        radial-gradient(circle at top right, #1f2559 0, transparent 60%),
-        radial-gradient(circle at bottom, #0b4e6b 0, transparent 60%),
-        radial-gradient(circle at center, #0b061f 0, var(--bg) 70%);
+  transform: translateZ(0);
+  will-change: transform;
 }
 
-/* ceglana tekstura jako overlay z mieszaniem */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: -1;
+body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
 
-    background: url("images/cegla.png") repeat;
-    background-size: 512px 512px;
-
-    opacity: 0.35;
-    mix-blend-mode: soft-light;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(0,0,0,0.35), transparent 55%),
+    radial-gradient(circle at 50% 100%, rgba(0,0,0,0.60), transparent 65%),
+    linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.55));
+  opacity: 0.95;
 }
 
-/* ======================
-   TREŚĆ STRONY
-====================== */
+/* ----------------------
+   Page fade-in
+  (index: intro -> show)
+---------------------- */
+#site-content{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 
-#site-content {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+#site-content.show{
+  opacity: 1;
+  transform: none;
 }
 
-/* ======================
-   HEADER – GLASS
-====================== */
+/* ----------------------
+   Panel / Card skin (applied explicitly)
+---------------------- */
+.lp-panel{
+  max-width: var(--card-width);
+  margin-inline: auto;
 
-.site-header {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    display: flex;
-    justify-content: center;
-    padding: 1rem 0;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+
+  box-shadow: var(--panel-shadow);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+
+  position: relative;
+  overflow: hidden;
 }
 
-.site-header .container {
-    width: 100%;
-    max-width: var(--card-width);
-    padding: 0.9rem 1.4rem;
 
-    border-radius: var(--radius-uniform);
-    background: linear-gradient(
-        140deg,
-        rgba(20, 15, 45, 0.9),
-        rgba(12, 8, 28, 0.7)
-    );
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(22px);
-
-    box-shadow: var(--shadow-soft);
+/* allow using the same skin for small cards inside grids */
+.lp-panel.lp-panel--fluid{
+  max-width: none;
+  margin: 0;
 }
 
-.logo {
-    margin: 0;
-    font-size: 1.55rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+
+.lp-panel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.06), transparent 38%);
+  opacity: 1;
 }
 
-.tagline {
-    margin: 0.25rem 0 0;
-    color: var(--muted);
-    font-size: 0.95rem;
+/* ----------------------
+   Header / Navbar
+---------------------- */
+.site-header{
+  display: flex;
+  justify-content: center;
 }
 
-/* ======================
-   MAIN
-====================== */
-
-.site-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 0 3rem;
+.site-header .lp-panel{
+  border-color: var(--panel-border-strong);
 }
 
-/* ======================
-   KARTY — GLASSMORPHISM
-====================== */
-
-.container.hero-content,
-.container.tg-box {
-    width: 100%;
-    max-width: var(--card-width);
-    margin: 0 auto 2.2rem;
-    padding: 2.4rem 2.1rem;
-
-    border-radius: var(--radius-uniform);
-    background:
-        radial-gradient(circle at top left,
-            rgba(255, 255, 255, 0.18),
-            transparent 55%)
-        ,var(--glass-bg-soft);
-
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(22px);
-
-    box-shadow: var(--shadow-strong);
-    position: relative;
-    overflow: hidden;
+.site-header.unstuck .lp-panel{
+  box-shadow: 0 18px 55px rgba(0,0,0,0.72);
+  border-color: rgba(255,255,255,0.20);
 }
 
-.container.hero-content::before,
-.container.tg-box::before {
-    content: "";
-    position: absolute;
-    inset: -40%;
-    background: conic-gradient(
-        from 220deg,
-        rgba(255, 255, 255, 0.16),
-        transparent 25%,
-        transparent 60%,
-        rgba(255, 255, 255, 0.14),
-        transparent 80%
-    );
-    opacity: 0.14;
-    mix-blend-mode: screen;
-    pointer-events: none;
+.logo{
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.1;
 }
 
-/* HERO */
-
-.hero-text h2 {
-    margin: 0 0 0.9rem;
-    font-size: 2.1rem;
+.tagline{
+  margin-top: .2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.2;
 }
 
-.hero-text p {
-    margin: 0 0 0.75rem;
-    line-height: 1.7;
-    color: var(--muted);
+/* navbar: pill-style linki */
+.lp-nav .nav-link{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: .45rem .85rem;
+  border-radius: 999px;
+
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  box-shadow: var(--pill-shadow);
+
+  color: var(--text);
+  text-decoration: none;
+
+  transition: transform .15s ease, filter .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
 
-.hero-meta {
-    margin-top: 0.6rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem 1.5rem;
-    font-size: 0.95rem;
+.lp-nav .nav-link:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  border-color: rgba(255,255,255,0.20);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.48);
 }
 
-.hero-meta span {
-    padding: 0.25rem 0.7rem;
-    border-radius: 999px;
-    background: rgba(8, 5, 26, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.45);
+.lp-nav .nav-link:active{ transform: translateY(0px) scale(.99); }
+
+.lp-nav .nav-link:focus-visible{
+  outline: 2px solid rgba(0,170,255,0.55);
+  outline-offset: 2px;
 }
 
-/* Piotrek w sekcji */
-
-.hero-image {
-    margin-top: 1.6rem;
-    display: flex;
-    justify-content: center;
+.lp-nav .nav-link.active,
+.lp-nav .nav-link[aria-current="page"]{
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.22);
 }
 
-.hero-image img {
-    max-width: 100%;
-    border-radius: var(--radius-uniform);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    background: radial-gradient(circle at top,
-                rgba(255, 255, 255, 0.09),
-                transparent 55%);
-    filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.85));
+/* pillki też poza navbar'em */
+.lp-pill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .45rem .85rem;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  box-shadow: var(--pill-shadow);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform .15s ease, filter .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.lp-pill:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  border-color: rgba(255,255,255,0.20);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.48);
+  color: var(--text);
+}
+.lp-pill:active{ transform: translateY(0px) scale(.99); }
+
+.lp-nav-cta{
+  border-radius: 999px;
+  font-weight: 700;
+
+  background: rgba(0, 170, 255, 0.18);
+  border: 1px solid rgba(0, 170, 255, 0.38);
+  color: var(--text);
 }
 
-/* TELEGRAM */
-
-.telegram-section {
-    width: 100%;
-    padding-bottom: 3rem;
+.lp-nav-cta:hover{
+  filter: brightness(1.10);
+  color: var(--text);
 }
 
-.tg-box {
-    text-align: center;
+/* toggler (hamburger) */
+.navbar-toggler{
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(0,0,0,0.18);
+  border-radius: 14px;
+  padding: .55rem .6rem;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
 }
 
-.tg-button {
-    display: inline-block;
-    padding: 0.85rem 1.7rem;
-    font-size: 1.05rem;
-    color: var(--text);
-    text-decoration: none;
-    border-radius: 999px;
-    background: linear-gradient(
-        120deg,
-        rgba(0, 136, 204, 0.85),
-        rgba(0, 196, 255, 0.95)
-    );
-    font-weight: 600;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 10px 22px rgba(0, 136, 204, 0.55);
+/* ----------------------
+   Main layout
+---------------------- */
+.site-main{
+  flex: 1;
+  padding: 2rem 0 3rem;
 }
 
-.tg-button:hover {
-    transform: translateY(-3px) scale(1.03);
-
-    background: linear-gradient(
-        120deg,
-        rgba(0, 150, 230, 1),
-        rgba(0, 210, 255, 1)
-    );
-
-    box-shadow:
-        0 16px 32px rgba(0, 150, 230, 0.65),
-        0 0 20px rgba(0, 180, 255, 0.7);
-
-    filter: brightness(1.15);
+/* ----------------------
+   Hero
+---------------------- */
+.hero .lp-panel{
+  box-shadow: var(--panel-shadow-strong);
 }
 
-.tg-button:active {
-    transform: translateY(1px) scale(0.98);
-    box-shadow: 0 6px 14px rgba(0, 136, 204, 0.4);
+.hero-text h2{
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.7rem, 2.2vw, 2.1rem);
 }
 
-/* ======================
-   FOOTER
-====================== */
-
-.site-footer {
-    padding: 1.2rem 0 1.7rem;
-    text-align: center;
-    color: var(--muted);
+.hero-text p{
+  margin: 0 0 0.75rem;
+  line-height: 1.7;
+  color: var(--muted);
 }
 
-.site-footer .container {
-    width: 100%;
-    max-width: var(--card-width);
-    margin: 0 auto;
-    padding: 0.9rem 1.5rem;
-
-    border-radius: var(--radius-uniform);
-    background: rgba(12, 8, 32, 0.9);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
-
-    box-shadow: var(--shadow-soft);
+.hero-meta span{
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.42);
 }
 
-.site-footer .small {
-    margin: 0;
-    font-size: 0.82rem;
-    opacity: 0.9;
+/* obrazek */
+.hero-image img{
+  max-width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0,0,0,0.12);
+  filter: drop-shadow(0 18px 44px rgba(0, 0, 0, 0.85));
 }
 
-/* ======================
-   INTRO — PIOTREK z BLUREM
-====================== */
-
-#intro-brick {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* zamiast czarnego tła: półprzezroczysta mgła */
-    background: rgba(0, 0, 0, 0.32);
-
-    /* i rozmycie prawdziwej strony pod spodem */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-
-    transition:
-        opacity 1s ease,
-        filter 1s ease,
-        background-color 1s ease,
-        backdrop-filter 1s ease;
+/* ----------------------
+   Countdown
+---------------------- */
+.countdown{
+  padding: 14px 16px;
 }
 
-#intro-brick img {
-    max-width: 92%;
-    max-height: 92%;
-    border-radius: var(--radius-uniform);
-    filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.9));
+.cd-title{
+  font-weight: 750;
+  letter-spacing: .02em;
+  opacity: .92;
+  margin-bottom: 10px;
 }
 
-#intro-brick.hide {
-    opacity: 0;
-    background: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(0px);
-    pointer-events: none;
+.cd-grid{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(50px, 1fr));
+  gap: 10px;
+  padding: 25px 0 0;
 }
 
-/* ======================
-   RESPONSIVE
-====================== */
+.cd-box{
+  padding: 10px 8px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.10);
+  text-align: center;
+}
 
-@media (max-width: 800px) {
-    .container.hero-content,
-    .container.tg-box {
-        padding: 2rem 1.4rem;
-        margin-bottom: 1.7rem;
-    }
+.cd-num{
+  display: block;
+  font-size: 22px;
+  font-weight: 850;
+  line-height: 1.05;
+}
 
-    .hero-text h2 {
-        font-size: 1.7rem;
-    }
+.cd-lbl{
+  display: block;
+  font-size: 12px;
+  opacity: .75;
+  margin-top: 4px;
+}
+
+.cd-sub{
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: .75;
+}
+
+@media (max-width: 520px){
+  .cd-grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ----------------------
+   Telegram button (site)
+---------------------- */
+.lp-btn-accent{
+  border-radius: 999px;
+  font-weight: 700;
+
+  background: rgba(0,170,255,0.18);
+  border: 1px solid rgba(0,170,255,0.35);
+  color: var(--text);
+
+  box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+  will-change: transform;
+}
+.lp-btn-accent:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.10);
+  color: var(--text);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.55);
+}
+.lp-btn-accent:active{
+  transform: translateY(0px) scale(0.99);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.40);
+}
+
+/* ----------------------
+   Contact cards tweaks
+---------------------- */
+.lp-card{
+  padding: 18px;
+}
+
+/* ----------------------
+   Footer
+---------------------- */
+.site-footer{
+  padding: 1.2rem 0 1.7rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.site-footer .lp-panel{
+  padding: 0.9rem 1.5rem;
+}
+
+.small{
+  margin: 0;
+  font-size: 0.82rem;
+  opacity: 0.9;
+}
+
+/* ----------------------
+   Intro — Piotrek overlay (index)
+---------------------- */
+#intro-brick{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition: opacity 1s ease, background-color 1s ease, backdrop-filter 1s ease;
+}
+
+#intro-brick img{
+  max-width: 92%;
+  max-height: 92%;
+  border-radius: var(--radius);
+  filter: drop-shadow(0 28px 80px rgba(0,0,0,0.95));
+}
+
+#intro-brick.hide{
+  opacity: 0;
+  background: rgba(0,0,0,0);
+  backdrop-filter: blur(0px);
+  pointer-events: none;
 }

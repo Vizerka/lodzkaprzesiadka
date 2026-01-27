@@ -1,84 +1,151 @@
 <!DOCTYPE html>
-<html lang="pl-PL">
+<html lang="pl-PL" data-bs-theme="dark">
 <head>
-    <!-- Jarvis zrób mi strone przesiadki-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Łódzka Przesiadka - Fursuitwalk w Łodzi</title>
-    
-    
-    <!-- SEO -->
-    <!-- Podobno tak trzeba xD-->
-    <meta name="description" content="Łódzka Przesiadka to fursuitwalk i spotkanie futrzaków w Łodzi.">
-    
-    <!-- Open Graph / Social -->
-    <meta property="og:title" content="Łódzka Przesiadka - Fursuitwalk w Łodzi">
-    <meta property="og:description" content="Fursuitwalk, zdjęcia i meet w centrum Łodzi.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://lodzkaprzesiadka.pl/">
-    <meta property="og:image" content="https://lodzkaprzesiadka.pl/static/images/cegla_piotrek.png">
-    
-    <link rel="icon" type="image/jpeg" href="static/images/favicon.jpg">
-    <link rel="stylesheet" href="static/styles.css?v=1.2">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Łódzka Przesiadka - Fursuitwalk w Łodzi</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Łódzka Przesiadka to fursuitwalk i furvent w Łodzi.">
+
+  <link rel="canonical" href="https://lodzkaprzesiadka.pl/">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:site_name" content="Łódzka Przesiadka">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:title" content="Łódzka Przesiadka - Fursuitwalk w Łodzi">
+  <meta property="og:description" content="Fursuitwalk, zdjęcia i furvent w centrum Łodzi.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lodzkaprzesiadka.pl/">
+  <meta property="og:image" content="https://lodzkaprzesiadka.pl/static/images/cegla_piotrek.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Łódzka Przesiadka - Fursuitwalk w Łodzi">
+  <meta name="twitter:description" content="Fursuitwalk, zdjęcia i furvent w centrum Łodzi.">
+  <meta name="twitter:image" content="https://lodzkaprzesiadka.pl/static/images/cegla_piotrek.png">
+
+  <link rel="icon" type="image/jpeg" href="static/images/favicon.jpg">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="static/styles.css?v=bs-1">
 </head>
 <body>
-    <!-- GIGA PIOTREK STARTEN MACHEN CEGŁA -->
-    <div id="intro-brick">
-        <img src="static/images/cegla_piotrek.png" alt="Grafika Łódzkiej Przesiadki z cegłą">
-    </div>
-    <div id="site-content">
+  <!-- GIGA PIOTREK STARTEN MACHEN CEGŁA -->
+  <div id="intro-brick">
+    <img src="static/images/cegla_piotrek.png" alt="Grafika Łódzkiej Przesiadki z cegłą">
+  </div>
 
-        <header class="site-header">
-            <div class="container">
-                <h1 class="logo">Łódzka Przesiadka</h1>
-                <p class="tagline">Fursuitwalk 2026 🧱</p>
-            </div>
-        </header>
+  <div id="site-content">
 
-        <main class="site-main">
-            <section class="hero">
-                <div class="container hero-content">
-                    <div class="hero-text">
-                        <h2>Fursuitwalk, Cegła. 🧱</h2>
+    <header class="site-header sticky-top py-3">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark lp-panel px-3 py-2 lp-nav" aria-label="Nawigacja">
+      <a class="navbar-brand m-0 text-decoration-none" href="index.html">
+        <span class="logo">Łódzka Przesiadka</span>
+        <span class="tagline d-block">Furvent 2026 🧱</span>
+      </a>
 
-                        <p>Łódzka Przesiadka 2026 to już trzecia edycja Łódzkiego Fursuitwalku! Spacer po centrum miasta, sesje zdjęciowe, 
-                            integracja z furry community i mnóstwo pozytywnej energii w industrialnym klimacie Łodzi.</p>
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainnav"
+              aria-controls="mainnav" aria-expanded="false"
+              aria-label="Otwórz menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-                        <p>Więcej informacji o wydarzeniu, szczegółowym programie i dodatkowych atrakcjach pojawi się już wkrótce. 
-                            Śledź nasze social media i kanał Telegram, żeby nie przegapić żadnych newsów!</p>
+      <div class="collapse navbar-collapse mt-3 mt-lg-0" id="mainnav">
+        <ul class="navbar-nav ms-auto mb-3 mb-lg-0 gap-2">
+              <li class="nav-item"><a class="nav-link active" href="index.html" aria-current="page">Start</a></li>
+              <li class="nav-item"><a class="nav-link" href="kontakt.html">Kontakt</a></li>
+        </ul>
 
-                        <p class="hero-meta">
-                            <span>📍 Łódź</span>
-                            <span>🗓️ <strong>Data wkrótce</strong></span>
-                        </p>
-                    </div>
-                    <div class="hero-image">
-                         <img src="static/images/cegla_piotrek.png" alt="Stylizowana grafika z cegłą Łódzkiej Przesiadki – Piotrek">
-                    </div>
+        <div class="d-grid d-lg-block ms-lg-2">
+          <a class="btn lp-nav-cta" href="telegram.html">Telegram</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+    <main class="site-main">
+      <section class="hero">
+        <div class="container">
+          <div class="lp-panel p-4 p-md-5">
+            <div class="row g-4 align-items-start">
+              <div class="col-lg-7">
+                <div class="hero-text">
+                  <h2>Fursuitwalk? Event? Cegła. 🧱</h2>
+
+                  <p>
+                    Łódzka Przesiadka 2026 to już trzecia edycja Łódzkiego Fursuitwalku! W tym roku spotykamy się w dniach
+                    <strong>30-31 maja 2026</strong> <a href="https://hoteltobaco.pl/" target="_blank" rel="noopener noreferrer">Hotelu Tobaco</a> w
+                    sercu Łodzi. Idąc za sukcesem zeszłorocznego Przesiadkowego aftera w tym roku przychodzimy z dwudniowym eventem! Nie zapominając przy tym
+                    o <strong>fursuitwalku</strong> w parku!
+                  </p>
+
+                  <p>
+                    Więcej informacji o wydarzeniu, szczegółowym programie i dodatkowych atrakcjach pojawi się już wkrótce.
+                    Śledź nasze social media i kanał Telegram, żeby nie przegapić żadnych newsów!
+                  </p>
+
+                  <p class="hero-meta d-flex flex-wrap gap-2 mt-3">
+                    <span>📍 Łódź, Hotel Tobaco</span>
+                    <span>🗓️ <strong>30-31.05.2026</strong></span>
+                  </p>
                 </div>
-            </section>
+              </div>
 
-            <section class="telegram-section">
-                <div class="container tg-box">
-                    <h2>Dołącz do kanału informacyjnego</h2>
-                    <p>Wszystkie ogłoszenia, update'y i ważne info o Łódzkiej Przesiadce lądują najpierw na Telegramie. 
-                        Jeśli chcesz być na bieżąco - wpadaj tutaj:</p>
+              <div class="col-lg-5">
+                <div class="lp-panel lp-panel--fluid countdown mb-4" id="countdown" aria-label="Odliczanie do Łódzkiej Przesiadki">
+                  <div class="cd-title">Start za</div>
 
-                    <a href="https://t.me/lodzkaprzesiadkainfo" target="_blank" rel="noopener noreferrer" class="tg-button">
-                        👉 Telegram: @lodzkaprzesiadkainfo
-                    </a>
+                  <div class="cd-grid">
+                    <div class="cd-box"><span class="cd-num" id="cd-days">--</span><span class="cd-lbl">dni</span></div>
+                    <div class="cd-box"><span class="cd-num" id="cd-hours">--</span><span class="cd-lbl">godz</span></div>
+                    <div class="cd-box"><span class="cd-num" id="cd-mins">--</span><span class="cd-lbl">min</span></div>
+                    <div class="cd-box"><span class="cd-num" id="cd-secs">--</span><span class="cd-lbl">sek</span></div>
+                  </div>
+
+                  <div class="cd-sub" id="cd-sub">30.05.2026 • 10:00</div>
                 </div>
-            </section>
-        </main>
 
-        <footer class="site-footer">
-            <div class="container">
-                <p class="small">Więcej informacji i pełny program wkrótce. Stay tuned. 🧱✨</p>
+                <div class="hero-image text-center">
+                  <img src="static/images/cegla_piotrek.png" alt="Stylizowana grafika z cegłą Łódzkiej Przesiadki – Piotrek">
+                </div>
+              </div>
             </div>
-        </footer>
+          </div>
+        </div>
+      </section>
 
-    </div>
+      <section class="telegram-section mt-4">
+        <div class="container">
+          <div class="lp-panel p-4 p-md-5 text-center">
+            <h2>Dołącz do kanału informacyjnego</h2>
+            <p class="mt-3">
+              Wszystkie ogłoszenia, update'y i ważne info o Łódzkiej Przesiadce lądują najpierw na Telegramie.
+              Jeśli chcesz być na bieżąco - wpadaj tutaj:
+            </p>
 
-    <script src="static/app.js"></script>
+            <a href="https://t.me/lodzkaprzesiadkainfo" target="_blank" rel="noopener noreferrer" class="btn btn-lg lp-btn-accent mt-2">
+              👉 Telegram: @lodzkaprzesiadkainfo
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="lp-panel">
+          <p class="small">Więcej informacji i pełny program wkrótce. Stay tuned. 🧱✨</p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="static/app.js"></script>
 </body>
 </html>
